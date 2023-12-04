@@ -2,7 +2,9 @@
 
 <div class="container">
     {% if settings.cover %}
+     {% include "ads.html" %}
     {% include 'components/cover.html' %}
+     {% include "ads.html" %}
     {% endif %}
     
     {% include 'tags.html' %}
@@ -49,6 +51,7 @@
                     <a href="/articles?page=2" class="btn rounded-pill mx-3 px-4 text-white bg-gradient-success">Load More</a>
                 </li>
             </ul>
+             {% include "ads.html" %}
         </div>
     </div>
 </div>

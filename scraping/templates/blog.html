@@ -1,5 +1,6 @@
 {% extends 'base.html' %}{% load static %}{% block content %}
 <div class="container">
+     {% include "ads.html" %}
     <h1 class="d-none">{{ settings.title }}</h1>
     {% include 'tags.html' %}
     <div class="row">
