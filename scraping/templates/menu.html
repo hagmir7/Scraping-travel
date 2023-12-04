@@ -2,7 +2,10 @@
     <div class="row d-flex justify-content-center">
         <div class="col-md-8">
             <div class="list-group">
-                <a href="/" class="list-group-item list-group-item-action">Home</a>
+                <a href="/" class="list-group-item list-group-item-action">{% trans "Home" %}</a>
+                {% if request.get_host == "merylivre.com" %}
+                <a href="/books?lang=ar" class="list-group-item list-group-item-action">{% trans "Books" %}</a>
+                {% endif %}
                 {% for link in header  %}
                 <a href="{{ link.url }}" class="list-group-item list-group-item-action">{{ link.name }}</a>
                 {% endfor %}
