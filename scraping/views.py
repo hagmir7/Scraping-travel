@@ -134,8 +134,13 @@ def book(request, slug):
         response = requests.get(api_url)
         if response.status_code == 200:
             data = response.json()
-            return render(
-                request, "books/book.html", {"book": data, "books": last_books}
+            return render(request, "books/book.html", 
+                {
+                    "book": data,
+                    "books": last_books,
+                    "image": f"https://freesad.com{data.get('image')}",
+                    'title': data.get('name')
+                }
             )
 
         else:
