@@ -114,7 +114,9 @@ def books(request):
             return render(
                 request,
                 "books.html",
-                {"books": data, "next": next_page, "previous": previous_page},
+                {"books": data,
+                  'title': "Download free pdf books",
+                  "next": next_page, "previous": previous_page},
             )
 
         else:
