@@ -139,7 +139,8 @@ def book(request, slug):
                     "book": data,
                     "books": last_books,
                     "image": f"https://freesad.com{data.get('image')}",
-                    'title': data.get('name')
+                    'title': data.get('name'),
+                    'description': data.get('description')
                 }
             )
 
