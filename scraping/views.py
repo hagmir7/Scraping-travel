@@ -37,10 +37,7 @@ def index(request):
         title = settings.title
     else:
         title = "Blog Website Create by Freesad.com"
-    context = {
-        "posts": posts,
-        "title": title
-    }
+    context = {"posts": posts, "title": title}
     return render(request, "index.html", context)
 
 
@@ -60,7 +57,6 @@ def dashobard(request):
     return render(request, "dash.html", context)
 
 
-# Travel page
 def blog(request):
     content = Post.objects.all().order_by("-date")
     paginator = Paginator(content, 24)  # Show 25 contacts per page.
@@ -95,6 +91,61 @@ def post(request, slug):
         "article": True,
     }
     return render(request, "post.html", context)
+
+
+last_books = []
+
+
+def books(request):
+    page = request.GET.get("page", "1")  # Default to "1" if page is not present
+    language = request.GET.get("lang", "en")
+    api_url = f"https://freesad.com/{language}/api/books/new{'' if page == '1' else f'?page={page}'}"
+
+    try:
+        response = requests.get(api_url)
+
+        if response.status_code == 200:
+            data = response.json().get("data", [])
+
+            next_page = response.json().get("has_next", False) == "true"
+            previous_page = page != "1"
+
+            # Pass the data to the template
+            return render(
+                request,
+                "books.html",
+                {"books": data, "next": next_page, "previous": previous_page},
+            )
+
+        else:
+            return render(
+                request,
+                "404.html",
+                {"error_message": "Failed to fetch data from the API"},
+            )
+
+    except Exception as e:
+        return render(request, "404.html", {"error_message": str(e)})
+
+
+def book(request, slug):
+    api_url = f"https://freesad.com/ar/api/book/{slug}"
+    try:
+        response = requests.get(api_url)
+        if response.status_code == 200:
+            data = response.json()
+            return render(
+                request, "books/book.html", {"book": data, "books": last_books}
+            )
+
+        else:
+            return render(
+                request,
+                "404.html",
+                {"error_message": "Failed to fetch data from the API"},
+            )
+    except Exception as e:
+        return render(request, "404.html", {"error_message": str(e)})
 
 
 @user_passes_test(superuser_required)
@@ -135,7 +186,7 @@ def deletePost(request, id):
             pass
         post.delete()
         messages.success(request, "Post Deleted Succesfully..")
-        if request.GET.get('post'):
+        if request.GET.get("post"):
             try:
                 return redirect(f"/p/{slug}")
             except:
@@ -411,7 +462,7 @@ def contact(request):
             form.save()
             messages.success(request, "The message has been sent successfully")
             return redirect("contact")
-    
+
     if settings:
         title = settings.name
     else:

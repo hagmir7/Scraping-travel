@@ -1,0 +1,41 @@
+{% extends "base.html" %}{% load i18n %}
+{% block content %}
+<div class="container">
+    <div class="row">
+    {% for book in books %}
+    <div class="book-card col-6 col-sm-6 col-md-3 col-lg-3 col-xl-2 mt-2 px-2">
+        <div class="card card-book shadow-sm overflow-hidden h-100 m-0">
+            <a href="/books/{{book.slug}}" class="h-100">
+                <img class="book-image fill" height="100%" src="https://freesad.com{{book.image}}" alt="{{book.name}}" width="100%">
+            </a>
+        </div>
+    </div>
+    {% empty %}
+    <div class="py-5 text-center">{% trans "No Books" %}</div>
+    {% endfor %}
+</div>
+<div class="d-flex justify-content-center mt-3">
+    
+    <a href='/books?lang={{ request.GET.lang }}&page={{ request.GET.page|add:"-1" }}' class="btn text-white bg-gradient-success my-1 px-4 me-1 btn-sm rounded-pill">
+        {% trans "Previous" %}
+    </a>
+
+    {% if request.GET.page and request.GET.page|add:1 is not None %}
+        <a href='/books?lang={{ request.GET.lang }}&page={{ request.GET.page|add:1 }}' class="btn text-white bg-gradient-success my-1 px-4 me-1 btn-sm rounded-pill">
+            {% trans "Next" %}
+        </a>
+    {% else %}
+    <a href='/books?lang={{ request.GET.lang }}&page=1' class="btn text-white bg-gradient-success my-1 px-4 me-1 btn-sm rounded-pill">
+            {% trans "Load more" %}
+    </a>
+    {% endif %}
+
+
+
+
+
+</div>
+</div>
+
+
+{% endblock content %}

@@ -11,7 +11,13 @@
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
               <a class="nav-link text-muted fs-6" href="/">{% trans "Home" %}</a>
+          </li>
+
+          {% if request.get_host == "merylivre.com" %}
+            <li class="nav-item">
+              <a class="nav-link text-muted fs-6" href="/books?lang=ar">{% trans "Books" %}</a>
             </li>
+          {% endif %}
           {% for link in header %}
             <li class="nav-item">
               <a class="nav-link text-muted fs-6" {% if link.new_tab %}target="_blank"{% endif %} href="{{ link.url }}">{{ link.name }}</a>
@@ -35,4 +41,3 @@
     </div>
   </header>
 
-{{ DEBUG }}

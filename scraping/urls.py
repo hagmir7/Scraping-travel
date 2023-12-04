@@ -18,6 +18,8 @@ urlpatterns = [
     path("page/delete/<int:id>", deletePage, name="delete_page"),
     path("page/update/<int:id>", updatePage, name="update_page"),
     path("users", users, name="users"),
+    path("books", books, name="books"),
+    path("books/<str:slug>", book, name="book"),
     path("contact/list", contactList),
     path("contact/delete/<int:id>", contactDelete),
     path("contact/read/<int:id>", contactRead),
