@@ -43,7 +43,7 @@ def index(request):
 
 @user_passes_test(superuser_required)
 def dashobard(request):
-    posts = Post.objects.filter(is_public=True).order_by("-date")
+    posts = Post.objects.all().order_by("-date")
     users = User.objects.all()
     contacts = Contact.objects.filter(readed=None)
     pages = Page.objects.all()

@@ -13,7 +13,7 @@ class Post(models.Model):
     image = models.ImageField(upload_to="Image", null=True, blank=True)
     description = models.TextField(null=True, blank=True)
     views = models.IntegerField(default=0)
-    tags = models.CharField(max_length=100, null=True, blank=True)
+    tags = models.CharField(max_length=200, null=True, blank=True)
     date = models.DateTimeField(auto_now_add=True)
     body = models.TextField()
     slug = models.SlugField(null=True, blank=True, max_length=200)
